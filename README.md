@@ -84,7 +84,7 @@ The ETL runs automatically every **Monday at 9:00 AM** via cron.
 
 ### How it works
 
-- `run2_etl.sh` — Template file committed to the repo. Contains placeholder credentials (`your_username`, `your_password`). Use this as the starting point.
+- `run_etl.sh.example` — Template file committed to the repo. Contains placeholder credentials. Copy this file, rename it to `run_etl.sh`, and fill in your actual values.
 - `run_etl.sh` — Your local copy with real credentials. **Never commit this file.** Make sure it's in `.gitignore`.
 
 `run_etl.sh` exports environment variables and then calls `etl.py`:
