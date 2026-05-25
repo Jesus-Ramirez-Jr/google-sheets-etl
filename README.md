@@ -69,13 +69,53 @@ pip install -r requirements.txt
 # 5. Set environment variables
 export DB_USER=your_mysql_username
 export DB_PASSWORD=your_mysql_password
-export DB_NAME=your_db_name
 
 # 6. Run the script
 python etl.py
 ```
 
 > **Note:** Never hardcode credentials. DB username and password are passed via environment variables. The Google credentials JSON should be listed in `.gitignore`.
+
+---
+
+## Automated Scheduling (Cron)
+
+The ETL runs automatically every **Monday at 9:00 AM** via cron.
+
+### How it works
+
+- `run2_etl.sh` — Template file committed to the repo. Contains placeholder credentials (`your_username`, `your_password`). Use this as the starting point.
+- `run_etl.sh` — Your local copy with real credentials. **Never commit this file.** Make sure it's in `.gitignore`.
+
+`run_etl.sh` exports environment variables and then calls `etl.py`:
+
+```bash
+export DB_USER=your_actual_username
+export DB_PASSWORD=your_actual_password
+export DB_NAME=your_actual_db_name
+python /Users/jr/Projects/google_sheets_etl/etl.py
+```
+
+### Crontab entry
+
+```
+0 9 * * 1 /Users/jr/Projects/google_sheets_etl/run_etl.sh
+```
+
+| Field | Value | Meaning |
+|---|---|---|
+| 0 | Minute | At :00 |
+| 9 | Hour | 9 AM |
+| * | Day of month | Any |
+| * | Month | Any |
+| 1 | Day of week | Monday only |
+
+### To install or edit the cron job
+
+```bash
+crontab -e        # Open cron editor
+crontab -l        # List current cron jobs
+```
 
 ---
 
@@ -86,10 +126,5 @@ python etl.py
 - **Environment variables** — Why we use them instead of hardcoding secrets, and how to set them locally
 - **ETL flow** — Hands-on understanding of authenticate → extract → transform → load as discrete, debuggable steps
 - **Dependency management** — Setting up a virtual environment and `requirements.txt`
-
----
-
-## What I learn
-- **Sync modes** — understanding the difference between full refresh and incremental and how if_exists='replace' mirrors Airbyte's full refresh overwrite behavior
-- **Least privilege principle** — why scopes are set to readonly and why that matters
-- **Reading tracebacks** — how to isolate the actual error from the noise
+- **Cron scheduling** — How to automate script execution on a recurring schedule using crontab, and how to read cron syntax
+- **Credential templating** — Using a dummy shell script (`run2_etl.sh`) as a safe, committable template while keeping the real credentials file (`run_etl.sh`) out of version control
