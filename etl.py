@@ -74,12 +74,19 @@ def load(df, table_name='assets'):
 
 
 def main():
+<<<<<<< HEAD
     required_vars = ['DB_USER', 'DB_PASSWORD',
                      'DB_NAME', 'GOOGLE_CREDENTIALS_FILE']
     missing = [v for v in required_vars if not os.environ.get(v)]
     if missing:
         raise EnvironmentError(
             f"Missing required environment variables: {missing}")
+=======
+    required_vars = ['DB_USER', 'DB_PASSWORD', 'DB_NAME', 'GOOGLE_CREDENTIALS_FILE']
+    missing = [v for v in required_vars if not os.environ.get(v)]
+    if missing:
+        raise EnvironmentError(f"Missing required environment variables: {missing}")
+>>>>>>> f00261ff5b24931511d29f0660190d0002d3ae16
     client = authenticate()
     data = extract(client)
     df = transform(data)
