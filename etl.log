@@ -1,0 +1,35 @@
+Authentication Successful
+Extraction Successful
+Transform Successful
+Successfully loaded 1000 rows into assets
+Authentication Successful
+Extraction Successful
+Transform Successful
+Successfully loaded 1000 rows into assets
+Authentication Successful
+Extraction Successful
+Transform Successful
+Successfully loaded 1000 rows into assets
+Authentication Successful
+Error: security rights needed
+Traceback (most recent call last):
+  File "/Users/jr/Projects/google_sheets_etl/etl.py", line 90, in <module>
+    main()
+    ~~~~^^
+  File "/Users/jr/Projects/google_sheets_etl/etl.py", line 84, in main
+    data = extract(client)
+  File "/Users/jr/Projects/google_sheets_etl/etl.py", line 36, in extract
+    sheet = client.open('aaac').sheet1
+            ~~~~~~~~~~~^^^^^^^^
+  File "/Users/jr/Projects/google_sheets_etl/venv/lib/python3.14/site-packages/gspread/client.py", line 157, in open
+    return Spreadsheet(self.http_client, properties)
+  File "/Users/jr/Projects/google_sheets_etl/venv/lib/python3.14/site-packages/gspread/spreadsheet.py", line 29, in __init__
+    metadata = self.fetch_sheet_metadata()
+  File "/Users/jr/Projects/google_sheets_etl/venv/lib/python3.14/site-packages/gspread/spreadsheet.py", line 230, in fetch_sheet_metadata
+    return self.client.fetch_sheet_metadata(self.id, params=params)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jr/Projects/google_sheets_etl/venv/lib/python3.14/site-packages/gspread/http_client.py", line 305, in fetch_sheet_metadata
+    r = self.request("get", url, params=params)
+  File "/Users/jr/Projects/google_sheets_etl/venv/lib/python3.14/site-packages/gspread/http_client.py", line 128, in request
+    raise APIError(response)
+gspread.exceptions.APIError: APIError: [503]: The service is currently unavailable.

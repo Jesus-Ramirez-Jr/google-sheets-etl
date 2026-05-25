@@ -1,2 +1,3 @@
 venv/
 *.json
+run_etl.sh

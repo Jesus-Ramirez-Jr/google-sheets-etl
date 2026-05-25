@@ -10,7 +10,7 @@ SCOPES = [
     'https://www.googleapis.com/auth/drive.readonly'
 ]
 
-CREDENTIALS_FILE = 'first-etl-496805-8beb6f61dbda.json'
+CREDENTIALS_FILE = os.environ.get('GOOGLE_CREDENTIALS_FILE')
 SPREADSHEET_NAME = 'aaac'
 
 
@@ -54,9 +54,6 @@ def transform(data):
         df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
         print("Transform Successful")
         return df
-    except TypeError:
-        print(f"Error: Transform Error: {e}")
-        raise
     except Exception as e:
         print(f"Transform Failed: {e}")
         raise
@@ -77,6 +74,12 @@ def load(df, table_name='assets'):
 
 
 def main():
+    required_vars = ['DB_USER', 'DB_PASSWORD',
+                     'DB_NAME', 'GOOGLE_CREDENTIALS_FILE']
+    missing = [v for v in required_vars if not os.environ.get(v)]
+    if missing:
+        raise EnvironmentError(
+            f"Missing required environment variables: {missing}")
     client = authenticate()
     data = extract(client)
     df = transform(data)
