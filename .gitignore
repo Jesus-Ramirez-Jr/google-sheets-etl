@@ -1,7 +1,4 @@
 venv/
 *.json
-<<<<<<< HEAD
 run_etl.sh
-=======
-run_etl.sh
->>>>>>> f00261ff5b24931511d29f0660190d0002d3ae16
+etl.log
