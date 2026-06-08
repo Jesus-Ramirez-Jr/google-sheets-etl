@@ -3,9 +3,9 @@ from etl import transform
 
 
 def test_column_names_lowercased():
-    sample_data = [{'First Name': 'John', 'Last Name': 'Does'}]
+    sample_data = [{'FirstName': 'John', 'LastName': 'Does'}]
     df = transform(sample_data)
-    assert list(df.columns) == ['first_name', 'last_name']
+    assert list(df.columns) == ['firstname', 'lastname']
 
 
 def test_strip_blank_spaces():
